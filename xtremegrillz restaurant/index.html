@@ -8,12 +8,12 @@
   <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
+  <meta name="keywords" content="Xtreme Grillz, restaurant, grill, food, Enugu, Nigeria" />
+  <meta name="description" content="Xtreme Grillz - Premium restaurant and lounge in Enugu, Nigeria offering delicious grilled foods, pizza, pasta and more." />
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="">
 
-  <title>Xtreme grills</title>
+  <title>Xtreme Grills - Restaurant & Lounge</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -27,15 +27,208 @@
     crossorigin="anonymous" />
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
-
+  
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-
+  
+  <style>
+    /* Additional styles for cart functionality */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      z-index: 1050;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    
+    .cart-sidebar.open {
+      right: 0;
+    }
+    
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1040;
+      display: none;
+    }
+    
+    .cart-overlay.active {
+      display: block;
+    }
+    
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .cart-item-details {
+      flex-grow: 1;
+    }
+    
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+    
+    .quantity-btn {
+      width: 25px;
+      height: 25px;
+      background: #f5f5f5;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .quantity-input {
+      width: 40px;
+      text-align: center;
+      margin: 0 5px;
+    }
+    
+    .remove-item {
+      background: none;
+      border: none;
+      color: #ff0000;
+      cursor: pointer;
+    }
+    
+    .cart-summary {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: 10px;
+      background: #ffbe33;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    
+    .checkout-btn:hover {
+      background: #e69c00;
+    }
+    
+    @media (max-width: 768px) {
+      .cart-sidebar {
+        width: 320px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .cart-sidebar {
+        width: 280px;
+      }
+    }
+    
+    /* Animation for cart items */
+    @keyframes itemAdded {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .item-added {
+      animation: itemAdded 0.5s ease;
+    }
+    
+    /* Badge for cart count */
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff0000;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cart-link-container {
+      position: relative;
+      display: inline-block;
+    }
+  </style>
 </head>
 
 <body>
+
+  <!-- Cart Overlay -->
+  <div class="cart-overlay"></div>
+  
+  <!-- Cart Sidebar -->
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Order</h3>
+      <button class="close-cart">&times;</button>
+    </div>
+    
+    <div class="cart-items">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    
+    <div class="cart-summary">
+      <div class="d-flex justify-content-between">
+        <span>Subtotal:</span>
+        <span class="cart-subtotal">₦0</span>
+      </div>
+      <div class="d-flex justify-content-between">
+        <span>Service Charge (5%):</span>
+        <span class="cart-service-charge">₦0</span>
+      </div>
+      <div class="d-flex justify-content-between font-weight-bold">
+        <span>Total:</span>
+        <span class="cart-total">₦0</span>
+      </div>
+      
+      <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+  </div>
 
   <div class="hero_area">
     <div class="bg-box">
@@ -46,6 +239,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
+            <img src="" alt="">
             <span>
               Xtreme grills
             </span>
@@ -75,62 +269,65 @@
               <a href="" class="user_link">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
-              <a class="cart_link" href="#">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
-                  style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                  <g>
+              <div class="cart-link-container">
+                <a class="cart_link" href="#" id="cartToggle">
+                  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                    style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                     <g>
-                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                      <g>
+                        <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                     c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                      </g>
                     </g>
-                  </g>
-                  <g>
                     <g>
-                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                      <g>
+                        <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                     C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                     c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                     C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                      </g>
                     </g>
-                  </g>
-                  <g>
                     <g>
-                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                      <g>
+                        <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                     c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                      </g>
                     </g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                </svg>
-              </a>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                  </svg>
+                </a>
+                <span class="cart-badge">0</span>
+              </div>
               <form class="form-inline">
                 <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
                   <i class="fa fa-search" aria-hidden="true"></i>
@@ -186,8 +383,6 @@
                       to private events, our space is designed to host your special moments in style. Enjoy exceptional
                       service, customizable menus, and a lively atmosphere that makes every occasion feel unforgettable.
                       Let us help you turn your event into an experience worth remembering.
-
-
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn1">
@@ -232,13 +427,11 @@
           </ol>
         </div>
       </div>
-
     </section>
     <!-- end slider section -->
   </div>
 
   <!-- offer section -->
-
   <section class="offer_section layout_padding-bottom">
     <div class="offer_container">
       <div class="container ">
@@ -255,7 +448,7 @@
                 <h6>
                   <span>20%</span> Off
                 </h6>
-                <a href="">
+                <a href="" class="order-now-btn" data-name="Tasty Thursdays Special" data-price="12000" data-discount="20">
                   Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                     style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -326,7 +519,7 @@
                 <h6>
                   <span>15%</span> Off
                 </h6>
-                <a href="">
+                <a href="" class="order-now-btn" data-name="Pizza Days Special" data-price="15000" data-discount="15">
                   Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                     style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -389,11 +582,9 @@
       </div>
     </div>
   </section>
-
   <!-- end offer section -->
 
   <!-- food section -->
-
   <section class="food_section layout_padding-bottom">
     <div class="container">
       <div class="heading_container heading_center">
@@ -424,16 +615,14 @@
                   </h5>
                   <p>
                     Our Chicken Pizza is a crowd favorite—loaded with tender grilled chicken, melted cheese, zesty
-                    tomato sauce, and a perfect blend of herbs on a crispy, golden crust. It’s a bold twist on a
+                    tomato sauce, and a perfect blend of herbs on a crispy, golden crust. It's a bold twist on a
                     classic, served hot and made to satisfy every bite.
-
-
                   </p>
                   <div class="options">
                     <h6>
-                      N12000
+                      ₦12,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Chicken Pizza" data-price="12000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -506,16 +695,15 @@
                     Large Beef Burger
                   </h5>
                   <p>
-                    
                     Sink your teeth into our juicy, flame-grilled beef burger—stacked high with fresh lettuce, ripe
-                    tomatoes, melted cheese, crispy onions, and our signature sauce, all tucked in a toasted bun. It’s
+                    tomatoes, melted cheese, crispy onions, and our signature sauce, all tucked in a toasted bun. It's
                     big, bold, and built to satisfy serious appetites.
                   </p>
                   <div class="options">
                     <h6>
-                      N8000
+                      ₦8,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Large Beef Burger" data-price="8000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -591,14 +779,12 @@
                     Experience the bold flavors of our Xtreme Grillz Special Pizza — a loaded masterpiece topped with
                     spicy grilled chicken, seasoned beef, fresh veggies, and a generous layer of melted cheese. Every
                     bite is a perfect blend of smoky, savory, and mouthwatering goodness made for true pizza lovers.
-
-
                   </p>
                   <div class="options">
                     <h6>
-                      N15000
+                      ₦15,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Xtreme Grillz Special Pizza" data-price="15000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -673,15 +859,13 @@
                   <p>
                     Indulge in our Delicious Pasta — a rich, comforting dish made with perfectly cooked pasta tossed in
                     a creamy, flavorful sauce. Paired with your choice of tender chicken or spicy beef, fresh herbs, and
-                    a sprinkle of parmesan, it’s the ultimate comfort meal for any pasta lover.
-
-
+                    a sprinkle of parmesan, it's the ultimate comfort meal for any pasta lover.
                   </p>
                   <div class="options">
                     <h6>
-                      N14000
+                      ₦14,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Delicious Pasta" data-price="14000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -755,14 +939,14 @@
                   </h5>
                   <p>
                     Crispy, golden perfection — our French Fries are freshly cut, seasoned just right, and fried to a
-                    satisfying crunch. Whether as a snack or a side, they’re the perfect companion to any meal at Xtreme
-                    Grillz. Add cheese or spicy seasoning for an extra kick!-
+                    satisfying crunch. Whether as a snack or a side, they're the perfect companion to any meal at Xtreme
+                    Grillz. Add cheese or spicy seasoning for an extra kick!
                   </p>
                   <div class="options">
                     <h6>
-                      N1000
+                      ₦1,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="French Fries" data-price="1000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -835,18 +1019,16 @@
                     Pepperoni Pizza
                   </h5>
                   <p>
-                    true classic done the Xtreme way — our Pepperoni Pizza features a crispy, hand-tossed crust layered
+                    A true classic done the Xtreme way — our Pepperoni Pizza features a crispy, hand-tossed crust layered
                     with rich tomato sauce, gooey mozzarella, and generously topped with spicy pepperoni slices. Each
                     bite delivers bold flavor and irresistible satisfaction. Perfect for sharing… or keeping all to
                     yourself.
-
-
                   </p>
                   <div class="options">
                     <h6>
-                      N14000
+                      ₦14,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Pepperoni Pizza" data-price="14000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -922,14 +1104,12 @@
                     Juicy, flame-grilled perfection — our Grilled Chicken Burger is stacked with tender chicken breast,
                     fresh lettuce, ripe tomatoes, and a zesty house sauce, all nestled in a toasted bun. A wholesome,
                     flavorful bite that hits the spot every time.
-
-
                   </p>
                   <div class="options">
                     <h6>
-                      N7000
+                      ₦7,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Grilled Chicken Burger" data-price="7000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -1005,14 +1185,12 @@
                     Simple, satisfying, and packed with flavor—our Egg Sandwich is made with fluffy, perfectly cooked
                     eggs, layered on freshly toasted bread with crisp lettuce, juicy tomatoes, and a touch of our
                     signature sauce. Ideal for breakfast, brunch, or anytime you crave something wholesome and hearty.
-
-
                   </p>
                   <div class="options">
                     <h6>
-                      N6000
+                      ₦6,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Egg Sandwich" data-price="6000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -1087,15 +1265,13 @@
                   <p>
                     Crafted for true pasta lovers, our Xtreme Grillz Special Pasta features a rich, creamy sauce tossed
                     with perfectly cooked pasta, tender chunks of meat, vibrant vegetables, and a bold blend of herbs
-                    and spices. It’s a mouthwatering fusion of flavor in every bite.
-
-
+                    and spices. It's a mouthwatering fusion of flavor in every bite.
                   </p>
                   <div class="options">
                     <h6>
-                      N10000
+                      ₦10,000
                     </h6>
-                    <a href="">
+                    <a href="" class="add-to-cart" data-name="Delicious Pasta Special" data-price="10000">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                         style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -1166,14 +1342,11 @@
       </div>
     </div>
   </section>
-
   <!-- end food section -->
 
   <!-- about section -->
-
   <section class="about_section layout_padding">
     <div class="container  ">
-
       <div class="row">
         <div class="col-md-6 ">
           <div class="img-box">
@@ -1192,8 +1365,6 @@
               to delight your taste buds, offering a perfect blend of classic favorites and bold, unforgettable
               creations. From the first taste to the last, Xtreme Grillz promises an experience that's anything but
               ordinary.
-
-
             </p>
             <a href="">
               Read More
@@ -1203,7 +1374,6 @@
       </div>
     </div>
   </section>
-
   <!-- end about section -->
 
   <!-- book section -->
@@ -1268,7 +1438,6 @@
   <!-- end book section -->
 
   <!-- client section -->
-
   <section class="client_section layout_padding-bottom">
     <div class="container">
       <div class="heading_container heading_center psudo_white_primary mb_45">
@@ -1282,14 +1451,13 @@
             <div class="box">
               <div class="detail-box">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam
+                  The food at Xtreme Grillz is absolutely amazing! I especially love their special pizza and the ordering process is so smooth with their new cart system.
                 </p>
                 <h6>
                   Moana Michell
                 </h6>
                 <p>
-                  magna aliqua
+                  Regular Customer
                 </p>
               </div>
               <div class="img-box">
@@ -1301,14 +1469,13 @@
             <div class="box">
               <div class="detail-box">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam
+                  The new online ordering feature makes it so convenient to get my favorite meals. The cart remembers my previous orders which saves me time!
                 </p>
                 <h6>
                   Mike Hamell
                 </h6>
                 <p>
-                  magna aliqua
+                  Food Enthusiast
                 </p>
               </div>
               <div class="img-box">
@@ -1320,7 +1487,6 @@
       </div>
     </div>
   </section>
-
   <!-- end client section -->
 
   <!-- footer section -->
@@ -1348,7 +1514,7 @@
               <a href="">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span>
-                  demo@gmail.com
+                  info@xtremegrillz.com
                 </span>
               </a>
             </div>
@@ -1362,7 +1528,7 @@
             <p>
               At Xtreme Grillz, we believe in serving more than just food; we serve an experience. Our menu is a
               celebration of flavors, crafted with the finest ingredients and a passion for culinary excellence. Join
-              us for a meal that’s not just about taste, but about creating unforgettable memories with every bite.
+              us for a meal that's not just about taste, but about creating unforgettable memories with every bite.
             </p>
             <div class="footer_social">
               <a href="">
@@ -1426,7 +1592,191 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
-
+  
+  <script>
+    // Cart functionality
+    $(document).ready(function() {
+      // Initialize cart
+      let cart = [];
+      
+      // Toggle cart visibility
+      $('#cartToggle').click(function(e) {
+        e.preventDefault();
+        $('.cart-sidebar').toggleClass('open');
+        $('.cart-overlay').toggleClass('active');
+      });
+      
+      $('.close-cart').click(function() {
+        $('.cart-sidebar').removeClass('open');
+        $('.cart-overlay').removeClass('active');
+      });
+      
+      $('.cart-overlay').click(function() {
+        $('.cart-sidebar').removeClass('open');
+        $('.cart-overlay').removeClass('active');
+      });
+      
+      // Add to cart functionality
+      $('.add-to-cart').click(function(e) {
+        e.preventDefault();
+        
+        const name = $(this).data('name');
+        const price = parseInt($(this).data('price'));
+        const discount = $(this).data('discount') ? parseInt($(this).data('discount')) : 0;
+        
+        // Calculate discounted price if applicable
+        const discountedPrice = discount > 0 ? price * (100 - discount) / 100 : price;
+        
+        // Check if item already exists in cart
+        const existingItemIndex = cart.findIndex(item => item.name === name);
+        
+        if (existingItemIndex >= 0) {
+          // Increment quantity if item exists
+          cart[existingItemIndex].quantity += 1;
+        } else {
+          // Add new item to cart
+          cart.push({
+            name: name,
+            price: discountedPrice,
+            originalPrice: price,
+            discount: discount,
+            quantity: 1
+          });
+        }
+        
+        // Update cart display
+        updateCart();
+        
+        // Add animation to clicked item
+        $(this).closest('.box').addClass('item-added');
+        setTimeout(() => {
+          $(this).closest('.box').removeClass('item-added');
+        }, 500);
+      });
+      
+      // Update cart display
+      function updateCart() {
+        const cartItemsContainer = $('.cart-items');
+        cartItemsContainer.empty();
+        
+        let subtotal = 0;
+        
+        // Add each item to cart display
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+          
+          const itemHtml = `
+            <div class="cart-item">
+              <div class="cart-item-details">
+                <h6>${item.name}</h6>
+                <div class="d-flex justify-content-between">
+                  <span>${item.discount > 0 ? 
+                    `<span class="text-muted text-decoration-line-through">₦${item.originalPrice.toLocaleString()}</span> 
+                     ₦${item.price.toLocaleString()} (${item.discount}% off)` : 
+                    `₦${item.price.toLocaleString()}`}
+                  </span>
+                  <span>₦${itemTotal.toLocaleString()}</span>
+                </div>
+              </div>
+              <div class="cart-item-controls">
+                <div class="quantity-control">
+                  <button class="quantity-btn decrease-quantity" data-index="${index}">-</button>
+                  <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                  <button class="quantity-btn increase-quantity" data-index="${index}">+</button>
+                </div>
+                <button class="remove-item" data-index="${index}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          `;
+          
+          cartItemsContainer.append(itemHtml);
+        });
+        
+        // Calculate service charge (5%)
+        const serviceCharge = subtotal * 0.05;
+        const total = subtotal + serviceCharge;
+        
+        // Update summary
+        $('.cart-subtotal').text(`₦${subtotal.toLocaleString()}`);
+        $('.cart-service-charge').text(`₦${serviceCharge.toLocaleString()}`);
+        $('.cart-total').text(`₦${total.toLocaleString()}`);
+        
+        // Update cart badge
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        $('.cart-badge').text(totalItems);
+        
+        // Show empty message if cart is empty
+        if (cart.length === 0) {
+          cartItemsContainer.html('<p class="text-center">Your cart is empty</p>');
+        }
+      }
+      
+      // Handle quantity changes
+      $(document).on('click', '.increase-quantity', function() {
+        const index = $(this).data('index');
+        cart[index].quantity += 1;
+        updateCart();
+      });
+      
+      $(document).on('click', '.decrease-quantity', function() {
+        const index = $(this).data('index');
+        if (cart[index].quantity > 1) {
+          cart[index].quantity -= 1;
+          updateCart();
+        }
+      });
+      
+      // Handle item removal
+      $(document).on('click', '.remove-item', function() {
+        const index = $(this).data('index');
+        cart.splice(index, 1);
+        updateCart();
+      });
+      
+      // Proceed to checkout
+      $('.checkout-btn').click(function() {
+        if (cart.length === 0) {
+          alert('Your cart is empty. Please add items before checkout.');
+          return;
+        }
+        
+        // Here you would typically redirect to a checkout page or process the order
+        alert('Proceeding to checkout with ' + cart.reduce((sum, item) => sum + item.quantity, 0) + ' items.');
+        // In a real implementation, you would:
+        // 1. Save the cart to session/local storage or send to server
+        // 2. Redirect to checkout page
+        // window.location.href = '/checkout';
+      });
+      
+      // Special offer order buttons
+      $('.order-now-btn').click(function(e) {
+        e.preventDefault();
+        const name = $(this).data('name');
+        const price = parseInt($(this).data('price'));
+        const discount = parseInt($(this).data('discount'));
+        
+        // Calculate discounted price
+        const discountedPrice = price * (100 - discount) / 100;
+        
+        // Add to cart
+        cart.push({
+          name: name,
+          price: discountedPrice,
+          originalPrice: price,
+          discount: discount,
+          quantity: 1
+        });
+        
+        // Update cart and open it
+        updateCart();
+        $('.cart-sidebar').addClass('open');
+        $('.cart-overlay').addClass('active');
+      });
+    });
+  </script>
 </body>
 
 </html>
